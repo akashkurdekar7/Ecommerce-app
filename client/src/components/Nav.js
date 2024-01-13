@@ -43,7 +43,7 @@ const Nav = () => {
               Home
             </NavLink>
           </li>
-          
+
           <li>
             <NavLink
               to="/products"
@@ -254,7 +254,7 @@ const NavBar = styled.nav`
     transition: background-color 3s ease;
   }
   .dropdown-item {
-    padding: 1rem;
+    /* padding: 1rem; */
     width: 100%;
     transform: none !important;
     /* transition: background-color 3s ease; */
@@ -355,7 +355,6 @@ const NavBar = styled.nav`
       font-size: 1.5rem;
     }
   }
-  
 `;
 
 export default Nav;
