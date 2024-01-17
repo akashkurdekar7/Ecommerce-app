@@ -32,11 +32,9 @@ router.get("/user-auth", requireSignIn, (req, res) => {
 });
 
 // protected admin route auth
-router.get("/admin-auth", requireSignIn, isAdmin, async(req, res) => {
-
-    res.status(200).send({
-      ok: true,
-    });
-  
+router.get("/admin-auth", requireSignIn, isAdmin, async (req, res) => {
+  res.status(200).send({
+    ok: true,
+  });
 });
 export default router;
