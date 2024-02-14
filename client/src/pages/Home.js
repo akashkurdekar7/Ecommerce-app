@@ -6,19 +6,28 @@ import { styled } from "styled-components";
 const Home = () => {
   const [auth, setAuth] = useAuth();
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   return (
-    <Layout>
+    <Layout title={"All Products - Best Offers"}>
       <Wrapper className="grid grid-two-columns">
         <div className="filter">
-          <h1>filters</h1>
+          <h1 className="heading">Filter by Category</h1>
         </div>
         <div className="products">
-          <h1>all products</h1>
+          <h1 className="heading">All Products</h1>
         </div>
       </Wrapper>
     </Layout>
   );
 };
-const Wrapper = styled.section``;
+const Wrapper = styled.div`
+  display: flex;
+  margin-top: 3rem;
+  flex-direction: row;
+  .filter {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 export default Home;
