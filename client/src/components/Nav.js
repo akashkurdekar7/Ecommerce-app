@@ -44,7 +44,7 @@ const Nav = () => {
             </NavLink>
           </li>
 
-          <li>
+          {/* <li>
             <NavLink
               to="/products"
               className="navbar-link "
@@ -53,7 +53,7 @@ const Nav = () => {
             >
               Products
             </NavLink>
-          </li>
+          </li> */}
 
           {/* //to check if the user is logged in or registered  */}
           {!auth.user ? (

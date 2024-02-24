@@ -225,3 +225,67 @@ export const deleteProductController = async (req, res) => {
     });
   }
 };
+
+export const productFilterController = async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+    let args = {};
+
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+    const products = await Products.find(args);
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error in filter controller",
+      error,
+    });
+  }
+};
+
+export const productCountController = async (req, res) => {
+  try {
+    const total = await Products.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error in product count controller",
+      error,
+    });
+  }
+};
+
+// product list based on page
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 4;
+    const page = req.params.page ? req.params.page : 1;
+    const products = await Products.find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error in product list controller",
+      error,
+    });
+  }
+};
