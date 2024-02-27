@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Nav from "./Nav";
 import { GiShoppingBag } from "react-icons/gi";
+import SearchInput from "../Form/SearchInput";
 
 const Header = () => {
   return (
@@ -13,6 +14,7 @@ const Header = () => {
           <h1 className="heading">Ecommerce app</h1>
         </Logo>
       </NavLink>
+      <SearchInput />
       <Nav />
     </MainHeader>
   );

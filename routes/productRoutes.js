@@ -57,5 +57,6 @@ router.get("/product-count", productCountController);
 router.get("/product-list/:page", productListController);
 
 // search products
-router.get("/search/:keyword", searchProductsController);
+router.get("/search/:keyword", searchProductController);
+
 export default router;
