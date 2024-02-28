@@ -294,7 +294,6 @@ export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
     const results = await Products.find({
-      // i becoz of case sensitive
       $or: [
         { name: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } },

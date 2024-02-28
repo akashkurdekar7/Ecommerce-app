@@ -10,7 +10,7 @@ const SearchInput = () => {
 
   const handleSubmit = async (e) => {
     try {
-      e.prevent.default();
+      e.preventDefault();
       const { data } = await axios.get(
         `/api/v1/product/search/${values.keyword}`
       );
