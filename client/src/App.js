@@ -24,6 +24,7 @@ import Wishlist from "./pages/user/Wishlist";
 import UpdateProduct from "./pages/Admin/UpdateProduct";
 import Practise from "../src/Practise";
 import Search from "./pages/Search.js";
+import ProductDetails from "./pages/ProductDetails.js";
 
 const App = () => {
   const theme = {
@@ -89,6 +90,7 @@ const App = () => {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />

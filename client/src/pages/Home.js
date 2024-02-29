@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "./../components/Layout";
 import { styled } from "styled-components";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
@@ -15,6 +15,7 @@ const Home = () => {
   const [radio, setRadio] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   //to get all category
   const getAllCategory = async () => {
@@ -174,12 +175,12 @@ const Home = () => {
                   <p className="p-price">₹ {p.price}</p>
                   <p className="p-quantity">{p.quantity}</p>
                   <div className="button-container">
-                    <Link
-                      to={`/dashboard/admin/product/${p.slug}`}
+                    <button
+                      onClick={() => navigate(`/product/${p.slug}`)}
                       className="details-button"
                     >
                       More Details
-                    </Link>
+                    </button>
                     <button className="add-to-cart-button">Add to Cart</button>
                   </div>
                 </div>
@@ -241,7 +242,6 @@ const Wrapper = styled.div`
   }
 
   .all_products {
-    
     /* border: 3px solid red; */
     display: flex;
     flex-direction: column;

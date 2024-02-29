@@ -14,7 +14,7 @@ const Search = () => {
           <h6>
             {values?.results.length < 1
               ? "no product to show"
-              : `Found ${values?.results}`}
+              : `Found ${values?.results.length}`}
           </h6>
           <div className="product-list">
             {values?.results?.map((p) => (
