@@ -2,10 +2,11 @@ import React from "react";
 import Layout from "./../components/Layout";
 import { styled } from "styled-components";
 import { useSearch } from "../context/Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [values, setValues] = useSearch();
+  const navigate = useNavigate();
   return (
     <Layout title={"search results"}>
       <Wrapper>
@@ -36,7 +37,7 @@ const Search = () => {
                   <p className="p-quantity">{p.quantity}</p>
                   <div className="button-container">
                     <Link
-                      to={`/dashboard/admin/product/${p.slug}`}
+                      onClick={() => navigate(`/product/${p.slug}`)}
                       className="details-button"
                     >
                       More Details
