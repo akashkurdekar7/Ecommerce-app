@@ -43,6 +43,16 @@ const Nav = () => {
               Home
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/"
+              className="navbar-link home-link "
+              activeclassname="active"
+              onClick={() => setMenuIcon(false)}
+            >
+              category
+            </NavLink>
+          </li>
 
           {/* <li>
             <NavLink
@@ -257,7 +267,8 @@ const NavBar = styled.nav`
     padding: 1rem;
     width: 100%;
     transform: none !important;
-    /* transition: background-color 3s ease; */
+    /* transition: baimport useCategory from './hooks/useCategory';
+ckground-color 3s ease; */
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
