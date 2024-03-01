@@ -25,6 +25,7 @@ import UpdateProduct from "./pages/Admin/UpdateProduct";
 import Practise from "../src/Practise";
 import Search from "./pages/Search.js";
 import ProductDetails from "./pages/ProductDetails.js";
+import CartPage from "./pages/CartPage.js";
 
 const App = () => {
   const theme = {
@@ -92,6 +93,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/profile" element={<Profile />} />

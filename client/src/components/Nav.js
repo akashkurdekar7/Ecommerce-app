@@ -4,16 +4,18 @@ import { NavLink } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useAuth } from "../context/Auth";
-import { FaCaretDown } from "react-icons/fa";
-// import { useCartContext } from "../context/cart_context";
-// import DropdownMenu from "./DropdownMenu ";
+import useCategory from "./hooks/useCategory.js";
 import { toast } from "react-hot-toast";
+import { useCart } from "../context/Cart.js";
+
+import { Badge } from "antd";
+
 const Nav = () => {
   const [menuIcon, setMenuIcon] = useState();
   const [auth, setAuth] = useAuth();
-  // const { total_item } = useCartContext();
-
-  const [showDropdown, setShowDropdown] = useState(false); // Add state for dropdown visibility
+  const [showDropdown, setShowDropdown] = useState(false);
+  const categories = useCategory();
+  const [cart] = useCart();
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -43,18 +45,23 @@ const Nav = () => {
               Home
             </NavLink>
           </li>
-          <li>
+
+          {/* <li
+            className="navbar-item dropdown"
+            onMouseEnter={toggleDropdown}
+            onMouseLeave={toggleDropdown}
+          >
             <NavLink
               to="/"
-              className="navbar-link home-link "
-              activeclassname="active"
+              className="navbar-link home-link"
+              activeClassName="active"
               onClick={() => setMenuIcon(false)}
             >
-              category
+              Category
             </NavLink>
-          </li>
+          </li> */}
 
-          {/* <li>
+          <li>
             <NavLink
               to="/products"
               className="navbar-link "
@@ -63,7 +70,7 @@ const Nav = () => {
             >
               Products
             </NavLink>
-          </li> */}
+          </li>
 
           {/* //to check if the user is logged in or registered  */}
           {!auth.user ? (
@@ -128,10 +135,11 @@ const Nav = () => {
           )}
 
           <li>
-            <NavLink to="/cart" className="navbar-link cart-trolley--link">
-              <FiShoppingCart className="cart-trolley" />
-              {/* <span className="cart-total--item">{total_item}</span> */}
-            </NavLink>
+            <Badge count={cart?.length}>
+              <NavLink to="/cart" className="navbar-link cart-trolley--link">
+                <FiShoppingCart className="cart-trolley" />
+              </NavLink>
+            </Badge>
           </li>
         </ul>
 

@@ -7,16 +7,19 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./context/Auth.js";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { SearchProvider } from "./context/Search.js";
+import { CartProvider } from "./context/Cart.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
     <SearchProvider>
-      <Router>
-        <StyleProvider>
-          <App />
-        </StyleProvider>
-      </Router>
+      <CartProvider>
+        <Router>
+          <StyleProvider>
+            <App />
+          </StyleProvider>
+        </Router>
+      </CartProvider>
     </SearchProvider>
   </AuthProvider>
 );
