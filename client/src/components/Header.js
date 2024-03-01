@@ -11,7 +11,7 @@ const Header = () => {
       <NavLink className="logo" to="/">
         <Logo>
           <GiShoppingBag className="icon" />
-          <h1 className="heading">Ecommerce app</h1>
+          <h1 className="heading">Kraftopia</h1>
         </Logo>
       </NavLink>
       <SearchInput />
