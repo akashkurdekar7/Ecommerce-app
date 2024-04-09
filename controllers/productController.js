@@ -360,7 +360,6 @@ export const braintreeTokenController = async (req, res) => {
   }
 };
 
-
 // payment gateway api
 export const braintreePaymentController = async (req, res) => {
   try {
