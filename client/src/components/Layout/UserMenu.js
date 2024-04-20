@@ -4,75 +4,88 @@ import { styled } from "styled-components";
 
 const UserMenu = () => {
   return (
-    <Wrapper className="text-center">
-      <div className="list-group">
-        <h4>Dashboard Pannel</h4>
-        <NavLink
-          to="/dashboard/user/profile"
-          className="list-group-item "
-          activeclassname="active"
-          aria-current="true"
-        >
-          Profile
-        </NavLink>
-
-        <NavLink
-          to="/dashboard/user/orders"
-          className="list-group-item "
-          activeclassname="active"
-        >
-          Orders
-        </NavLink>
-
-        <NavLink
-          to="/dashboard/user/wishlist"
-          className="list-group-item"
-          activeclassname="active"
-        >
-          Wishlist
-        </NavLink>
+    <Wrapper>
+      <div className="dashboard-menu">
+        <h4>User Dashboard Panel</h4>
+        <NavList>
+          <NavLink
+            to="/dashboard/user/profile"
+            className="list-item"
+            activeClassName="active"
+            aria-current="true"
+          >
+            Profile
+          </NavLink>
+          <NavLink
+            to="/dashboard/user/orders"
+            className="list-item"
+            activeClassName="active"
+          >
+            Orders
+          </NavLink>
+          <NavLink
+            to="/dashboard/user/wishlist"
+            className="list-item"
+            activeClassName="active"
+          >
+            Wishlist
+          </NavLink>
+        </NavList>
       </div>
     </Wrapper>
   );
 };
+
 const Wrapper = styled.div`
-  .list-group {
+  position: relative;
+
+  .dashboard-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: ${({ theme }) => theme.colors.firstLight};
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 10;
     width: 100%;
-    font-size: 2rem;
-    max-width: 300px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    height: fit-content;
+
+    h4 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: ${({ theme }) => theme.colors.black};
+    }
   }
 
-  h4 {
-    width: 100%;
+  .list-item {
+    font-size: 1.5rem;
+    display: block;
     text-align: center;
-    background-color: ${({ theme }) => theme.colors.first};
+    padding: 1rem 0;
     color: ${({ theme }) => theme.colors.black};
-    border-radius: 0.5rem;
-    padding: 2rem;
-    margin-bottom: 0;
-  }
-  .list-group-item {
     text-decoration: none;
-    padding: 2rem;
+    transition: color 0.3s ease;
+    line-height: 1.5;
 
     &:hover {
       color: ${({ theme }) => theme.colors.first};
-      transition: color 0.3s ease;
     }
 
     &.active {
-      text-align: center;
-      width: 100%;
-      background-color: red;
-      color: white;
+      background-color: ${({ theme }) => theme.colors.first};
+      color: ${({ theme }) => theme.colors.white};
       border-radius: 0.5rem;
-      transition: background-color 0.3s ease;
     }
   }
 `;
+
+const NavList = styled.nav`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
 export default UserMenu;

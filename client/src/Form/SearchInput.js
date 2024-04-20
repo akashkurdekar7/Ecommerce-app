@@ -66,5 +66,8 @@ const Wrapper = styled.div`
   .search_button:hover {
     background-color: #0056b3;
   }
+  @media (max-width: ${({ theme }) => theme.media.tab}) {
+    display: none;
+  }
 `;
 export default SearchInput;

@@ -7,7 +7,7 @@ import { useAuth } from "../context/Auth";
 import useCategory from "./hooks/useCategory.js";
 import { toast } from "react-hot-toast";
 import { useCart } from "../context/Cart.js";
-
+import SearchInput from "../Form/SearchInput";
 import { Badge } from "antd";
 
 const Nav = () => {

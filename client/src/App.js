@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Error from "./pages/Error";
 import About from "./pages/About";
-// import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle";
@@ -26,6 +25,7 @@ import Practise from "../src/Practise";
 import Search from "./pages/Search.js";
 import ProductDetails from "./pages/ProductDetails.js";
 import CartPage from "./pages/CartPage.js";
+import AllProducts from "./pages/AllProducts.js";
 
 const App = () => {
   const theme = {
@@ -92,6 +92,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:slug" element={<ProductDetails />} />
+        <Route path="/products" element={<AllProducts />} />
         <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/dashboard" element={<PrivateRoute />}>

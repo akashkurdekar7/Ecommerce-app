@@ -7,6 +7,7 @@ import axios from "axios";
 import { Button } from "./../../styles/Button";
 import CategoryForm from "../../Form/CategoryForm";
 import { Modal } from "antd";
+
 const CreateCategory = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
@@ -14,13 +15,11 @@ const CreateCategory = () => {
   const [selected, setSelected] = useState(null);
   const [updated, setUpdated] = useState("");
 
-  //handle form submission
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post("/api/v1/category/create-category", {
         name,
       });
-      console.log("Server Response:", data); // Log the response
       if (data?.success) {
         toast.success(`${name} category created`);
         getAllCategory();
@@ -29,23 +28,21 @@ const CreateCategory = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong in the input form ");
+      toast.error("Something went wrong in the input form");
     }
   };
 
-  //to get all category
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
-      console.log("API Response:", data);
       if (data?.success) {
         setCategories(data?.category);
       } else {
-        toast.error(data.message); // Display error only when there is an issue
+        toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong in getting category");
+      toast.error("Something went wrong in getting categories");
     }
   };
 
@@ -53,7 +50,6 @@ const CreateCategory = () => {
     getAllCategory();
   }, []);
 
-  //handle updated form submission
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -73,11 +69,10 @@ const CreateCategory = () => {
       setVisible(false);
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong while updating");
+      toast.error("Something went wrong while updating");
     }
   };
 
-  // handle delete form category submission
   const handleDeleteSubmit = async (pId) => {
     try {
       const { data } = await axios.delete(
@@ -92,36 +87,38 @@ const CreateCategory = () => {
       setVisible(false);
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong while Deleting");
+      toast.error("Something went wrong while deleting");
     }
   };
 
   return (
-    <Layout title={"Dashboard - Create category's"}>
+    <Layout title={"Dashboard - Create Categories"}>
       <Wrapper className="section">
-        <div className="pannel grid grid-two-column">
-          <div className="pannel-items">
+        <div className="panel grid grid-two-column">
+          <div className="panel-items">
             <AdminMenu />
           </div>
-          <div className="pannel-content">
-            <h1 className="title">Manage category</h1>
+          <div className="panel-content">
+            <h1 className="title">Manage Categories</h1>
             <div className="form">
               <CategoryForm
                 handleSubmit={handleSubmit}
                 value={name}
                 setValue={setName}
+                placeholder="Enter category name"
+                buttonText="Create Category"
               />
             </div>
-            <div className="table_div">
+            <div className="table-container">
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Actions</th>
+                    <th>Name</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {categories?.map((c) => (
+                  {categories.map((c) => (
                     <tr key={c._id}>
                       <td>{c.name}</td>
                       <td>
@@ -138,9 +135,7 @@ const CreateCategory = () => {
 
                         <Button
                           className="btn"
-                          onClick={() => {
-                            handleDeleteSubmit(c._id);
-                          }}
+                          onClick={() => handleDeleteSubmit(c._id)}
                         >
                           Delete
                         </Button>
@@ -159,6 +154,8 @@ const CreateCategory = () => {
                 handleSubmit={handleUpdateSubmit}
                 value={updated}
                 setValue={setUpdated}
+                placeholder="Enter updated category name"
+                buttonText="Update Category"
               />
             </Modal>
           </div>
@@ -171,68 +168,71 @@ const CreateCategory = () => {
 const Wrapper = styled.div`
   margin: 1.5rem 3rem;
   padding: 0;
-  justify-content: center;
-  display: flex;
-  align-items: center;
+
   .title {
-    font-size: 5rem;
-    text-transform: capitalize;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: bold;
     margin-bottom: 1.5rem;
+    text-align: center;
   }
-  .pannel {
-    width: 100vw;
+
+  .panel {
     display: flex;
     gap: 1rem;
   }
-  .pannel-items {
+
+  .panel-items {
     width: 20%;
   }
-  .pannel-content {
-    width: 70%;
+
+  .panel-content {
+    width: 80%;
     flex-grow: 1;
 
-    .card {
+    .form {
+      margin-bottom: 2rem;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .table {
       width: 100%;
-      padding: 3rem;
+      border-collapse: collapse;
+    }
+
+    th {
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    td {
+      font-size: 1.6rem;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: ${({ theme }) => theme.colors.first};
+      color: ${({ theme }) => theme.colors.white};
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .btn {
+      margin-right: 1rem;
+      font-size: 1.6rem;
+      padding: 0.5rem 1rem;
     }
   }
-  .table_div {
-    margin-top: 2rem;
-    overflow-x: auto;
-  }
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-
-  th {
-    font-size: 3rem;
-    text-transform: uppercase;
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  td {
-    font-size: 2rem;
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-
-  th {
-    background-color: ${({ theme }) => theme.colors.first};
-    color: ${({ theme }) => theme.colors.black};
-    font-weight: bold;
-  }
-
-  tr:hover {
-    background-color: #f5f5f5;
-  }
-  .btn {
-    margin-right: 1rem;
-  }
 `;
+
 export default CreateCategory;

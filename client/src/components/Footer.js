@@ -7,19 +7,21 @@ import {
   AiOutlineTwitter,
   AiOutlineYoutube,
 } from "react-icons/ai";
+
 const Footer = () => {
   const [menuIcon, setMenuIcon] = useState();
+
   return (
     <Wrapper className="footer-container">
-      <div className="footer-container">
-        <div className="footer grid grid-five-column">
-          <div className="intro-desc">
-            <Logo src="/images/Klogo.png" alt="my logo image" />
-            <p>loremsafdosafsafljsadkfj safsfas asf</p>
-          </div>
+      <div className="footer">
+        <div className="intro-desc">
+          <Logo src="/images/Klogo.png" alt="my logo image" />
+          <p>loremsafdosafsafljsadkfj safsfas asf</p>
+        </div>
 
-          <div className="subscribe">
-            <h2 className="title">subscribe to get important updates</h2>
+        <div className="subscribe">
+          <h2 className="title">Subscribe to get important updates</h2>
+          <InputContainer>
             <input
               type="email"
               name="email"
@@ -27,249 +29,234 @@ const Footer = () => {
               id="email"
             />
             <Button>Subscribe</Button>
-          </div>
-
-          <div className={menuIcon ? "navbar active" : "navbar"}>
-            <ul className="navbar-lists">
-              <li>
-                <NavLink
-                  to="/"
-                  className="navbar-link home-link "
-                  activeclassname="active"
-                  onClick={() => setMenuIcon(false)}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/about"
-                  className="navbar-link"
-                  activeclassname="active"
-                  onClick={() => setMenuIcon(false)}
-                >
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contact"
-                  className="navbar-link "
-                  activeclassname="active"
-                  onClick={() => setMenuIcon(false)}
-                >
-                  Contact
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/products"
-                  className="navbar-link "
-                  activeclassname="active"
-                  onClick={() => setMenuIcon(false)}
-                >
-                  Products
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/blog"
-                  className="navbar-link "
-                  activeclassname="active"
-                  onClick={() => setMenuIcon(false)}
-                >
-                  Blog
-                </NavLink>
-              </li>
-
-              {/* <li>
-                  <NavLink to="/districts" className="navbar-link">Districts</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/categories" className="navbar-link">Categories</NavLink>
-                </li>
-                 */}
-            </ul>
-          </div>
-
-          <div className="social-group">
-            <h2 className="title">Follow us</h2>
-            <ul>
-              <li>
-                <NavLink to="#" className="social-link">
-                  <AiOutlineInstagram />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about" className="social-link">
-                  <AiOutlineTwitter />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact" className="social-link">
-                  <AiOutlineYoutube />
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-
-          <div className="contact">
-            <h2 className="title">Call us</h2>
-            <p>
-              <abbr title="contact me">
-                <NavLink href="tel:+9916390580">+919916390580</NavLink>
-              </abbr>
-            </p>
-          </div>
+          </InputContainer>
         </div>
 
-        <div className="line"></div>
+        <div className="navbar-lists">
+          <NavLink
+            to="/"
+            className="navbar-link"
+            activeClassName="active"
+            onClick={() => setMenuIcon(false)}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="navbar-link"
+            activeClassName="active"
+            onClick={() => setMenuIcon(false)}
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/products"
+            className="navbar-link"
+            activeClassName="active"
+            onClick={() => setMenuIcon(false)}
+          >
+            Products
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="navbar-link"
+            activeClassName="active"
+            onClick={() => setMenuIcon(false)}
+          >
+            Contact
+          </NavLink>
+          <NavLink
+            to="/blog"
+            className="navbar-link"
+            activeClassName="active"
+            onClick={() => setMenuIcon(false)}
+          >
+            Blog
+          </NavLink>
+        </div>
 
-        <div className="bottom grid grid-two-column">
-          <div className="copy-right">
-            &copy; 2023 <strong href="/">Kraftopia</strong>. All rights
-            reserved.
-          </div>
+        <div className="social-group">
+          <h2 className="title">Follow us</h2>
+          <ul>
+            <li>
+              <NavLink to="#" className="social-link">
+                <AiOutlineInstagram />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" className="social-link">
+                <AiOutlineTwitter />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact" className="social-link">
+                <AiOutlineYoutube />
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-          <div className="privacy">
-            <h2 className="title">Privacy policy</h2>
-            <h2 className="title">terms and conditions</h2>
-          </div>
+      <div className="line"></div>
+
+      <div className="bottom">
+        <div className="copy-right">
+          &copy; 2023 <strong>Kraftopia</strong>. All rights reserved.
+        </div>
+
+        <div className="privacy">
+          <NavLink to="#" className="title">
+            Privacy policy
+          </NavLink>
+          <NavLink to="#" className="title">
+            Terms and conditions
+          </NavLink>
         </div>
       </div>
     </Wrapper>
   );
 };
+
 const Wrapper = styled.footer`
-  // padding: 9rem 3rem;
-  .footer-container {
-    background-color: ${({ theme }) => theme.colors.firstLight};
-  }
-  .line {
-    width: 100%;
-    border: 1px solid black;
-  }
+  background-color: ${({ theme }) => theme.colors.firstLight};
+  padding: 3rem;
+  color: ${({ theme }) => theme.colors.black};
 
   .footer {
-    // margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
     align-items: center;
-    color: ${({ theme }) => theme.colors.black};
-    padding: 20px 0;
-    text-align: center;
   }
 
   .intro-desc {
-    font-size: 2rem;
-    color: black;
+    text-align: center;
   }
-  .subscribe {
-    row-gap: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .subscribe input {
-    border-radius: 1rem;
-    height: 4rem;
-  }
-  .subscribe Button {
-    display: flex;
 
-    align-items: center;
-    height: 4rem;
+  .subscribe {
+    text-align: center;
   }
+
   .title {
-    font-size: 2rem;
-    text-transform: capitalize;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .navbar-lists {
+    text-align: center;
     display: flex;
-    row-gap: 1rem;
     flex-direction: column;
-    align-items: center;
-  }
-  .navbar-lists ul {
-    display: grid;
-    row-gap: 1rem;
   }
 
-  .navbar-link,
-  .navbar-link:link,
-  .navbar-link:visited {
-    display: inline-block;
+  .navbar-link {
+    display: inline-flex;
+    flex-direction: column;
     text-decoration: none;
-    font-size: 2.5rem;
-    font-weight: 500;
-    // color: ${({ theme }) => theme.colors.black};
-    transition: color 0.4s linear;
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    color: ${({ theme }) => theme.colors.black};
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.first};
+    }
   }
-  .active {
+
+  .navbar-link.active {
     color: ${({ theme }) => theme.colors.first};
   }
-  .navbar-link:hover,
-  .navbar-link:active {
-    cursor: pointer;
-    color: ${({ theme }) => theme.colors.first};
-  }
+
   .social-group {
     text-align: center;
   }
-  .social-group ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 2rem auto 0;
 
-    width: max-content;
-    gap: 3rem;
+  .social-group ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
   }
-  .social-group ul li {
-    width: max-content;
-    margin: auto;
-  }
+
   .social-link {
-    font-size: 5rem;
-    gap: 1rem;
+    font-size: 2rem;
+    margin: 0 1rem;
     color: ${({ theme }) => theme.colors.black};
-    border-radius: 50%;
+    transition: color 0.3s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.first};
+    }
   }
-  .social-link:hover {
-    color: ${({ theme }) => theme.colors.first};
-  }
-  .contact p a {
-    color: ${({ theme }) => theme.colors.black};
-  }
-  .contact p abbr {
-    text-decoration: none;
-  }
-  .contact p a:hover {
-    color: ${({ theme }) => theme.colors.first};
-  }
-  .bottom {
+
+  .contact {
     text-align: center;
-    gap: 1rem;
+  }
+
+  .contact p {
+    margin: 0;
   }
 
   .copy-right {
-    margin-top: 1rem;
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
-  .copy-right strong:hover {
+
+  .copy-right strong {
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.first};
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.first};
+    }
+  }
+
+  .line {
+    width: 100%;
+    border-top: 1px solid ${({ theme }) => theme.colors.black};
+    margin: 2rem 0;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .privacy {
+    text-align: center;
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    .footer-container {
-      grid-template-column: 1fr;
+    .footer {
+      grid-template-columns: 1fr;
     }
   }
 `;
+
 const Logo = styled.img`
-  width: max-content;
-  height: 5rem;
-  display: flex;
-  margin: 1rem auto 0;
+  width: 100px;
 `;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  input[type="email"] {
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    padding: 0.5rem;
+    border-radius: 5px;
+    flex: 1;
+    max-width: 300px;
+    font-size: 1.2rem;
+  }
+
+  ${Button} {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+  }
+`;
+
 export default Footer;

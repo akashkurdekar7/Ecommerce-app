@@ -3,10 +3,11 @@ import Layout from "../../components/Layout";
 import { styled } from "styled-components";
 import { useAuth } from "../../context/Auth";
 import UserMenu from "./../../components/Layout/UserMenu";
+
 const Orders = () => {
   const { auth } = useAuth();
   return (
-    <Layout title={`Dashboard -${auth?.user?.name} Profile`}>
+    <Layout title={`Dashboard - ${auth?.user?.name} Profile`}>
       <Wrapper className="container">
         <div className="pannel grid grid-two-column">
           <div className="pannel-items">
@@ -20,12 +21,10 @@ const Orders = () => {
     </Layout>
   );
 };
+
 const Wrapper = styled.div`
-  width: 100%;
   margin: 1.5rem 3rem;
-  justify-content: center;
-  display: flex;
-  align-items: center;
+  padding: 0;
 
   .pannel {
     width: 100vw;
@@ -46,4 +45,5 @@ const Wrapper = styled.div`
     }
   }
 `;
+
 export default Orders;

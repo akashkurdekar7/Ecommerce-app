@@ -74,17 +74,13 @@ const Products = () => {
 };
 
 const Wrapper = styled.div`
-  /* width: 100%; */
   margin: 1.5rem 3rem;
-  justify-content: center;
-  display: flex;
   padding: 0;
-  align-items: center;
   .title {
-    font-size: 5rem;
-    text-transform: capitalize;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: bold;
     margin-bottom: 1.5rem;
+    text-align: center;
   }
   .pannel {
     width: 100vw;
@@ -157,6 +153,7 @@ const Wrapper = styled.div`
     margin-top: 2rem;
   }
   .no-products-text {
+    font-size: 2rem;
     text-align: center;
     margin-top: 2rem;
     color: #555;

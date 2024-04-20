@@ -26,6 +26,7 @@ const Dashboard = () => {
     </Layout>
   );
 };
+
 const Wrapper = styled.div`
   width: 100%;
   margin: 1.5rem 3rem;
@@ -42,9 +43,12 @@ const Wrapper = styled.div`
       width: 20%;
     }
   }
+
   .pannel-content {
     width: 70%;
     flex-grow: 1;
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    border-radius: 10px;
 
     .card {
       width: 100%;

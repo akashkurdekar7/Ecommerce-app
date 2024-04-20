@@ -11,7 +11,7 @@ export const registerController = async (req, res) => {
     if (!name || !email || !password || !phone || !address) {
       return res.status(400).send({
         message:
-          "Name, Email, Password, Phone Number, and Address are all required fields.",
+          "Name, Email, Password, Phone Number and Address are all required fields.",
       });
     }
 

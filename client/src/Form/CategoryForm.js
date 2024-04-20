@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
+import { Button } from "./../styles/Button";
 
 const CategoryForm = ({ handleSubmit, value, setValue }) => {
   return (
@@ -9,44 +10,59 @@ const CategoryForm = ({ handleSubmit, value, setValue }) => {
           <input
             type="text"
             className="form-control"
-            placeholder="Create new category:"
+            placeholder="Category Name..."
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
             }}
           />
         </div>
-        <button type="submit" className="btn">
-          Submit
-        </button>
+        <Button type="submit">Submit</Button>
       </form>
     </Wrapper>
   );
 };
+
 const Wrapper = styled.div`
   .form {
-    width: 40%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
     justify-content: center;
-    align-items: center;
+    gap: 2rem;
+
     .form-group {
-      width: 100%;
-      margin-bottom: 1rem;
+      width: max-content;
+      display: flex;
+      /* margin-bottom: 1.5rem; */
+
       .form-control {
+        text-transform: none;
         width: 100%;
-        border-radius: 10px;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid ${({ theme }) => theme.colors.gray};
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: ${({ theme }) => theme.colors.primary};
+        }
       }
     }
-    .btn {
-      width: 20%;
-      border-radius: 10px;
-      color: white;
-      background-color: red;
+
+    ${Button} {
+      border-radius: 0.5rem;
+      background-color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.white};
+      transition: background-color 0.3s ease;
+
       &:hover {
-        cursor: pointer;
+        background-color: ${({ theme }) => theme.colors.primaryDark};
       }
     }
   }
 `;
+
 export default CategoryForm;

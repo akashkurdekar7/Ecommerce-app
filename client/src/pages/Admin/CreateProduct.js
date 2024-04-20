@@ -105,7 +105,7 @@ const CreateProduct = () => {
               </div>
               <div className="preview">
                 {photo && (
-                  <div >
+                  <div>
                     <img
                       src={URL.createObjectURL(photo)}
                       alt="product-photo"
@@ -174,14 +174,13 @@ const Wrapper = styled.div`
   /* width: 100%; */
   margin: 1.5rem 3rem;
   padding: 0;
-  justify-content: center;
-  display: flex;
-  align-items: center;
+
   .title {
-    font-size: 5rem;
+    font-size: 3rem;
     text-transform: capitalize;
     font-weight: 700;
     margin-bottom: 1.5rem;
+    text-align: center;
   }
   .pannel {
     width: 100vw;

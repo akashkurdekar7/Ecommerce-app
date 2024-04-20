@@ -7,6 +7,7 @@ import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 import { Button } from "../styles/Button";
 import { toast } from "react-hot-toast";
+import styled from "styled-components";
 
 const CartPage = () => {
   const [cart, setCart] = useCart();
@@ -16,7 +17,21 @@ const CartPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // total price
+  useEffect(() => {
+    getToken();
+  }, [auth]);
+
+  // Fetch client token
+  const getToken = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/product/braintree/token");
+      setClientToken(data?.clientToken);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Calculate total price
   const totalPrice = () => {
     try {
       let total = 0;
@@ -32,7 +47,7 @@ const CartPage = () => {
     }
   };
 
-  // delete prodyct
+  // Remove item from cart
   const removeCartItem = async (pid) => {
     try {
       let myCart = [...cart];
@@ -45,19 +60,8 @@ const CartPage = () => {
     }
   };
 
-  const getToken = async () => {
-    try {
-      const { data } = await axios.get("/api/v1/product/braintree/token");
-      setClientToken(data?.clientToken);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getToken();
-  }, [auth]);
-
-  const handlePayment = async (req, res) => {
+  // Handle payment
+  const handlePayment = async () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
@@ -78,107 +82,184 @@ const CartPage = () => {
 
   return (
     <Layout>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <h1 className="text-center bg-light p-2 m-1">
-              {`Hello ${auth?.token && auth?.user?.name}`}
-            </h1>
-            <h4 className="text-center">
-              {cart?.length
-                ? `You have ${cart.length} items in your cart`
-                : "Your cart is empty"}
-              {auth?.token ? "" : " Please login to check out"}
-            </h4>
-          </div>
+      <Container>
+        <div className="title">
+          <h1 className="greeting">
+            Hello {auth?.token && auth?.user?.name}👋🏻
+          </h1>
+          <h2>
+            {cart?.length
+              ? `You have ${cart.length} items in your cart`
+              : "Your cart is empty"}
+            {auth?.token ? "" : " Please login to check out"}
+          </h2>
         </div>
-        <div className="row">
-          <div className="col-md-6">
+        <Content>
+          <ItemsContainer>
             {cart?.map((p) => (
-              <div className="row card m-2 p-2 flex-row">
-                <div className="col-md-4">
+              <CartItem key={p._id}>
+                <div className="image">
                   <img
-                    className="card-img-top"
                     src={`/api/v1/product/product-photo/${p._id}`}
                     alt={p.name}
-                    width="100px"
-                    height="100px"
                   />
                 </div>
-                <div className="col-md-4 ">
-                  <p>{p.name}</p>
-                  <p>{p.description.substring(0, 30)}...</p>
-                  <p>Price : {p.price}</p>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => removeCartItem(p._id)}
-                  >
-                    Remove
-                  </button>
+                <div className="details">
+                  <p className="name">{p.name}</p>
+                  <p className="description">
+                    {p.description.substring(0, 30)}...
+                  </p>
+                  <p className="price">Price: {p.price}</p>
+                  <button onClick={() => removeCartItem(p._id)}>Remove</button>
                 </div>
-              </div>
+              </CartItem>
             ))}
-          </div>
-          <div className="col-md-3 text-center">
-            <h4>Cart summary</h4>
-            <p>Total | checkout | payment</p>
+          </ItemsContainer>
+          <SummaryContainer>
+            <h2>Cart Summary</h2>
             <hr />
-            <h4>Total: {totalPrice()}</h4>
-            {auth?.user?.address ? (
-              <>
-                <div className="mb-3">
-                  <h4>curret address</h4>
-                  <h5>{auth?.user?.address}</h5>
-                  <button
-                    className="btn btn-outline-warning"
-                    onClick={() => navigate("/dashboard/user/profile")}
-                  >
-                    Update address
+            <h3>Total: {totalPrice()}</h3>
+            <div className="address">
+              {auth?.user?.address ? (
+                <>
+                  <h4>Current Address</h4>
+                  <p>{auth?.user?.address}</p>
+                  <button onClick={() => navigate("/dashboard/user/profile")}>
+                    Update Address
                   </button>
-                </div>
-              </>
-            ) : (
-              <div className="mb-3">
-                {auth?.token ? (
-                  <button
-                    className="btn btn-outline-warning"
-                    onClick={() => navigate("/dashboard/user/profile")}
-                  >
-                    Update address
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-outline-warning"
-                    onClick={() => navigate("/login", { state: "/cart" })}
-                  >
-                    Please Login to Checkout
-                  </button>
-                )}
-              </div>
-            )}
-            <div className="dropin">
-              {!clientToken || !cart?.length ? " " : <></>}
-              <DropIn
-                options={{
-                  authorization: clientToken,
-                  paypal: {
-                    flow: "vault",
-                  },
-                }}
-                onInstance={(instance) => setInstance(instance)}
-              />
+                </>
+              ) : (
+                <>
+                  {auth?.token ? (
+                    <button onClick={() => navigate("/dashboard/user/profile")}>
+                      Update Address
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => navigate("/login", { state: "/cart" })}
+                    >
+                      Please Login to Checkout
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+            <DropInContainer>
+              {!clientToken || !cart?.length ? (
+                " "
+              ) : (
+                <DropIn
+                  options={{
+                    authorization: clientToken,
+                    paypal: { flow: "vault" },
+                  }}
+                  onInstance={(instance) => setInstance(instance)}
+                />
+              )}
               <Button
                 onClick={handlePayment}
                 disabled={!loading || !instance || !auth?.user?.address}
               >
-                {loading ? "Processing......" : "Make Payment"}
+                {loading ? "Processing..." : "Make Payment"}
               </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+            </DropInContainer>
+          </SummaryContainer>
+        </Content>
+      </Container>
     </Layout>
   );
 };
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .greeting {
+    font-size: 2rem;
+    text-transform: capitalize;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+  }
+`;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ItemsContainer = styled.div`
+  flex: 1;
+`;
+
+const CartItem = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 10px;
+  .image {
+    margin-right: 20px;
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+  }
+  .details {
+    flex: 1;
+    .name {
+      font-weight: bold;
+    }
+    .description {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .price {
+      font-size: 16px;
+    }
+    button {
+      padding: 5px 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      &:hover {
+        background-color: darkred;
+      }
+    }
+  }
+`;
+
+const SummaryContainer = styled.div`
+  flex-basis: 350px;
+  padding-left: 20px;
+  .address {
+    margin-bottom: 20px;
+    button {
+      padding: 5px 10px;
+      background-color: orange;
+      color: white;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      &:hover {
+        background-color: darkorange;
+      }
+    }
+  }
+`;
+
+const DropInContainer = styled.div`
+  margin-top: 20px;
+`;
 
 export default CartPage;
