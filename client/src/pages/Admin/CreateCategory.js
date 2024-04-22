@@ -171,12 +171,13 @@ const Wrapper = styled.div`
 
   .title {
     font-size: 3rem;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 1.5rem;
     text-align: center;
   }
 
   .panel {
+    width: 100vw;
     display: flex;
     gap: 1rem;
   }
@@ -186,7 +187,7 @@ const Wrapper = styled.div`
   }
 
   .panel-content {
-    width: 80%;
+    width: 70%;
     flex-grow: 1;
 
     .form {

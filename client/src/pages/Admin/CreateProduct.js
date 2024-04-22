@@ -122,13 +122,23 @@ const CreateProduct = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
-                <input
-                  type="textarea"
+                <textarea
+                  rows="4"
                   value={description}
-                  placeholder="give a product description"
+                  placeholder="Give a product description"
                   onChange={(e) => setDescription(e.target.value)}
-                />
+                  style={{
+                    width: "50%",
+                    maxWidth: "100%",
+                    minHeight: "100px",
+                    borderRadius: "5px",
+                    padding: "0.5rem",
+                    boxSizing: "border-box",
+                    textTransform: "none",
+                  }}
+                ></textarea>
               </div>
 
               <div className="form-group">
@@ -171,7 +181,6 @@ const CreateProduct = () => {
 };
 
 const Wrapper = styled.div`
-  /* width: 100%; */
   margin: 1.5rem 3rem;
   padding: 0;
 

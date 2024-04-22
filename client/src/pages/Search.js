@@ -1,17 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Layout from "./../components/Layout";
 import { styled } from "styled-components";
 import { useSearch } from "../context/Search";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useCart } from "../context/Cart";
+import toast from "react-hot-toast";
 
 const Search = () => {
+  const { slug } = useParams();
   const [values, setValues] = useSearch();
   const navigate = useNavigate();
+  const [cart, setCart] = useCart();
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await axios.get(`/api/v1/product/get-product/${slug}`);
+        setProduct(data?.product);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    if (slug) {
+      getProducts();
+    }
+  }, [slug]);
+
+  const incrementQuantity = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+
   return (
     <Layout title={"search results"}>
       <Wrapper>
         <div>
-          <h1>Search Results</h1>
+          <h3>Search Results</h3>
           <h6>
             {values?.results.length < 1
               ? "no product to show"
@@ -19,9 +56,8 @@ const Search = () => {
           </h6>
           <div className="product-list">
             {values?.results?.map((p) => (
-              // <Link key={p._id} to={`/dashboard/admin/product/${p.slug}`}>
-              <div className="product-card" style={{ width: "18rem" }}>
-                <div className="image-con">
+              <div key={p._id} className="product-card">
+                <div className="image-container">
                   <img
                     className="product-card-img"
                     src={`/api/v1/product/product-photo/${p._id}`}
@@ -42,11 +78,24 @@ const Search = () => {
                     >
                       More Details
                     </Link>
-                    <button className="add-to-cart-button">Add to Cart</button>
+
+                    <button
+                      className="add-to-cart-button"
+                      onClick={() => {
+                        const newCartItem = { ...p, quantity }; // Create a new object with the specified quantity
+                        setCart([...cart, newCartItem]); // Add the newCartItem to the cart
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, newCartItem])
+                        );
+                        toast.success("Item added successfully");
+                      }}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>
-              // </Link>
             ))}
           </div>
         </div>
@@ -54,6 +103,7 @@ const Search = () => {
     </Layout>
   );
 };
+
 const Wrapper = styled.div`
   .product-list {
     display: grid;
@@ -73,70 +123,73 @@ const Wrapper = styled.div`
       &:hover {
         transform: translateY(-5px);
       }
-    }
 
-    .image-con {
-      border-bottom: 1px solid black;
-      .product-card-img {
-        width: 100%;
-        border-radius: 8px;
-        height: 200px;
-        object-fit: cover;
-      }
-    }
+      .image-container {
+        border-bottom: 1px solid black;
 
-    .card-body {
-      padding: 0.8rem;
-
-      .p-name {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-      .p-description {
-        font-size: 1rem;
-        color: #555;
-      }
-      .p-price {
-        font-size: 1.25rem;
-        color: #007bff;
-        font-weight: bold;
-        margin-top: 0.5rem;
-      }
-      .p-quantity {
-        font-size: 1rem;
-        color: #555;
-        margin-top: 0.5rem;
-      }
-    }
-    .button-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-
-      .details-button,
-      .add-to-cart-button {
-        padding: 0.5rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-          background-color: #007bff;
-          color: white;
+        .product-card-img {
+          width: 100%;
+          border-radius: 8px;
+          height: 200px;
+          object-fit: cover;
         }
       }
 
-      .details-button {
-        background-color: #eee;
-        color: #333;
+      .card-body {
+        padding: 0.8rem;
+
+        .p-name {
+          font-size: 1.25rem;
+          margin-bottom: 0.5rem;
+        }
+        .p-description {
+          font-size: 1rem;
+          color: #555;
+        }
+        .p-price {
+          font-size: 1.25rem;
+          color: #007bff;
+          font-weight: bold;
+          margin-top: 0.5rem;
+        }
+        .p-quantity {
+          font-size: 1rem;
+          color: #555;
+          margin-top: 0.5rem;
+        }
       }
 
-      .add-to-cart-button {
-        background-color: #28a745;
-        color: white;
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+
+        .details-button,
+        .add-to-cart-button {
+          padding: 0.5rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #007bff;
+            color: white;
+          }
+        }
+
+        .details-button {
+          background-color: #eee;
+          color: #333;
+        }
+
+        .add-to-cart-button {
+          background-color: #28a745;
+          color: white;
+        }
       }
     }
   }
 `;
+
 export default Search;

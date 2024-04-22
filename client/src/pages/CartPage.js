@@ -36,7 +36,7 @@ const CartPage = () => {
     try {
       let total = 0;
       cart?.map((item) => {
-        total += item.price;
+        total += item.price * item.quantity; // Multiply price by quantity
       });
       return total.toLocaleString("en-IN", {
         style: "currency",
@@ -50,11 +50,37 @@ const CartPage = () => {
   // Remove item from cart
   const removeCartItem = async (pid) => {
     try {
-      let myCart = [...cart];
-      let index = myCart.findIndex((item) => item._id === pid);
-      myCart.splice(index, 1);
-      setCart(myCart);
-      localStorage.setItem("cart", JSON.stringify(myCart));
+      const updatedCart = cart.filter((item) => item._id !== pid);
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Increase quantity of item
+  const increaseQuantity = (pid) => {
+    try {
+      const updatedCart = cart.map((item) =>
+        item._id === pid ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Decrease quantity of item
+  const decreaseQuantity = (pid) => {
+    try {
+      const updatedCart = cart.map((item) =>
+        item._id === pid
+          ? { ...item, quantity: Math.max(item.quantity - 1, 1) }
+          : item
+      );
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } catch (error) {
       console.log(error);
     }
@@ -110,6 +136,11 @@ const CartPage = () => {
                     {p.description.substring(0, 30)}...
                   </p>
                   <p className="price">Price: {p.price}</p>
+                  <div className="quantity">
+                    <button onClick={() => decreaseQuantity(p._id)}>-</button>
+                    <span>{p.quantity}</span>
+                    <button onClick={() => increaseQuantity(p._id)}>+</button>
+                  </div>
                   <button onClick={() => removeCartItem(p._id)}>Remove</button>
                 </div>
               </CartItem>
@@ -225,8 +256,28 @@ const CartItem = styled.div`
     .price {
       font-size: 16px;
     }
+    .quantity {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      button {
+        padding: 5px 10px;
+        background-color: black;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #bbb;
+        }
+      }
+      span {
+        margin: 0 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
     button {
-      padding: 5px 10px;
+      padding: 5px 11.5px;
+      margin-top: 0.5rem;
       background-color: red;
       color: white;
       border: none;

@@ -18,6 +18,7 @@ const AllProducts = () => {
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
+  const [quantity, setQuantity] = useState(1);
 
   //to get all category
   const getAllCategory = async () => {
@@ -113,6 +114,7 @@ const AllProducts = () => {
       setProducts(data?.products || []);
     } catch (error) {}
   };
+
   return (
     <Layout title={"All Products - Best Offers"}>
       <Wrapper className="grid grid-two-columns">
@@ -149,19 +151,10 @@ const AllProducts = () => {
           </div>
         </div>
         <div className="all_products">
-          {/* {JSON.stringify(checked, null, 4)} */}
-          {/* {JSON.stringify(radio, null, 4)} */}
           <h1 className="heading">All Products</h1>
-          {/* {loading && <h2 className="loading-text">Loading...</h2>}
-          {!loading && products.length === 0 && (
-            <h2 className="no-products-text">
-              No products found. Create or upload products.
-            </h2>
-          )} */}
           <div className="product-list">
             {products?.map((p) => (
-              // <Link key={p._id} to={`/dashboard/admin/product/${p.slug}`}>
-              <div className="product-card" style={{ width: "18rem" }}>
+              <div className="product-card">
                 <div className="image-con">
                   <img
                     className="product-card-img"
@@ -170,7 +163,7 @@ const AllProducts = () => {
                   />
                 </div>
                 <div className="card-body">
-                  <h5 className="p-name">{p.name}</h5>
+                  <h5 className="p-name">{p.name.substring(0, 50)}...</h5>
                   <p className="p-description">
                     {p.description.substring(0, 25)}...
                   </p>
@@ -186,12 +179,13 @@ const AllProducts = () => {
                     <button
                       className="add-to-cart-button"
                       onClick={() => {
-                        setCart([...cart, p]);
+                        const newCartItem = { ...p, quantity }; // Create a new object with the specified quantity
+                        setCart([...cart, newCartItem]); // Add the newCartItem to the cart
                         localStorage.setItem(
                           "cart",
-                          JSON.stringify([...cart, p])
+                          JSON.stringify([...cart, newCartItem])
                         );
-                        toast.success("item added successfully");
+                        toast.success("Item added successfully");
                       }}
                     >
                       Add to Cart
@@ -199,13 +193,13 @@ const AllProducts = () => {
                   </div>
                 </div>
               </div>
-              // </Link>
             ))}
           </div>
           <div className="page">
             {products && products.length < total && (
               <button
                 className="load-btn"
+                role="button"
                 onClick={(e) => {
                   e.preventDefault();
                   setPage(page + 1);
@@ -215,7 +209,7 @@ const AllProducts = () => {
               </button>
             )}
           </div>
-          <h1>{total}</h1>
+          {/* <h1>{total}</h1> */}
         </div>
       </Wrapper>
     </Layout>
@@ -226,50 +220,44 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
   margin-top: 3rem;
-
+  .heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
   .filter_box {
-    /* border: 3px solid red; */
     background-color: #f9f9f9;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* padding: 1rem; */
-    /* display: flex;
+  }
+  .filter_by_category {
+    display: flex;
     flex-direction: column;
-    align-items: center; */
-
-    .heading {
-      font-size: 1.5rem;
-    }
-    .filter_by_category {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: baseline;
-    }
-    .filter_by_price {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: baseline;
-    }
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+  .filter_by_price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 1rem;
   }
 
   .all_products {
-    /* border: 3px solid red; */
     display: flex;
     flex-direction: column;
+  }
+  .heading {
+    font-size: 1.5rem;
+  }
 
-    .heading {
-      font-size: 1.5rem;
-    }
-
-    .loading-text,
-    .no-products-text {
-      margin-top: 1rem;
-      font-size: 2rem;
-      color: #555;
-    }
+  .loading-text,
+  .no-products-text {
+    margin-top: 1rem;
+    font-size: 2rem;
+    color: #555;
   }
 
   .product-list {
@@ -277,84 +265,180 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
     gap: 2rem;
     justify-content: space-around;
+  }
+  .product-card {
+    width: 20rem;
+    height: 40rem;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 
-    .product-card {
-      width: 18rem;
-      padding: 0.5rem;
-      border: 1px solid black;
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  .image-con {
+    border-bottom: 1px solid black;
+    .product-card-img {
+      width: 100%;
       border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-
-      &:hover {
-        transform: translateY(-5px);
-      }
+      height: 200px;
+      object-fit: cover;
     }
+  }
 
-    .image-con {
-      border-bottom: 1px solid black;
-      .product-card-img {
-        width: 100%;
-        border-radius: 8px;
-        height: 200px;
-        object-fit: cover;
-      }
+  .card-body {
+    padding: 0.8rem;
+
+    .p-name {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
     }
-
-    .card-body {
-      padding: 0.8rem;
-
-      .p-name {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-      .p-description {
-        font-size: 1rem;
-        color: #555;
-      }
-      .p-price {
-        font-size: 1.25rem;
-        color: #007bff;
-        font-weight: bold;
-        margin-top: 0.5rem;
-      }
-      .p-quantity {
-        font-size: 1rem;
-        color: #555;
-        margin-top: 0.5rem;
-      }
+    .p-description {
+      font-size: 1rem;
+      color: #555;
     }
-
-    .button-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-
-      .details-button,
-      .add-to-cart-button {
-        padding: 0.5rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-          background-color: #007bff;
-          color: white;
-        }
-      }
-
-      .details-button {
-        background-color: #eee;
-        color: #333;
-      }
-
-      .add-to-cart-button {
-        background-color: #28a745;
-        color: white;
-      }
+    .p-price {
+      font-size: 1.25rem;
+      color: #007bff;
+      font-weight: bold;
+      margin-top: 0.5rem;
     }
+    .p-quantity {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  .load-btn {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+      rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+      rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+      rgba(44, 187, 99, 0.15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto,
+      sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .load-btn:hover {
+    box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+      rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+      rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+      rgba(44, 187, 99, 0.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+  }
+  .reset_btn {
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: inline-flex;
+    fill: #000;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: -0.8px;
+    line-height: 24px;
+    min-width: 140px;
+    outline: 0;
+    padding: 0 17px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .reset_btn:focus {
+    color: #171e29;
+  }
+
+  .reset_btn:hover {
+    border-color: ${({ theme }) => theme.colors.first};
+    color: ${({ theme }) => theme.colors.black};
+  }
+
+  .reset_btn:active {
+    border-color: ${({ theme }) => theme.colors.first};
+    color: ${({ theme }) => theme.colors.black};
+  }
+
+  @media (min-width: 768px) {
+    .reset_btn {
+      min-width: 170px;
+    }
+  }
+  .details-button,
+  .add-to-cart-button {
+    /* gap: 1rem; */
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: inline-flex;
+    fill: #000;
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: -0.8px;
+    line-height: 20px;
+    /* min-width: 140px; */
+    outline: 0;
+    padding: 0 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  .details-button:focus,
+  .add-to-cart-button:focus {
+    color: ${({ theme }) => theme.colors.firstLight};
+  }
+  .details-button:hover,
+  .add-to-cart-button:hover {
+    border-color: ${({ theme }) => theme.colors.first};
+    color: ${({ theme }) => theme.colors.black};
+  }
+  .details-button:active,
+  .add-to-cart-button:active {
+    border-color: ${({ theme }) => theme.colors.first};
+    color: ${({ theme }) => theme.colors.black};
   }
 `;
 

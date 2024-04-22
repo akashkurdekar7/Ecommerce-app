@@ -4,6 +4,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import { Button } from "../styles/Button";
+import toast from "react-hot-toast";
+import { useCart } from "../context/Cart";
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -12,6 +14,7 @@ const ProductDetails = () => {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [cart, setCart] = useCart();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -85,7 +88,21 @@ const ProductDetails = () => {
                 +
               </button>
             </div>
-            <Button className="add-to-cart-btn">Add to Cart</Button>
+
+            <button
+              className="add-to-cart-button"
+              onClick={() => {
+                const newCartItem = { ...product, quantity }; // Create a new object with the specified quantity
+                setCart([...cart, newCartItem]); // Add the newCartItem to the cart
+                localStorage.setItem(
+                  "cart",
+                  JSON.stringify([...cart, newCartItem])
+                );
+                toast.success("Item added successfully");
+              }}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
         <hr />
@@ -105,7 +122,20 @@ const ProductDetails = () => {
                   <h3>{relatedProd.name}</h3>
                   <p>{relatedProd.description.substring(0, 15)}...</p>
                   <p>Price: {relatedProd.price}</p>
-                  <button className="add-to-cart-btn">Add to Cart</button>
+                  <button
+                    className="add-to-cart-button"
+                    onClick={() => {
+                      const newCartItem = { ...product, quantity }; // Create a new object with the specified quantity
+                      setCart([...cart, newCartItem]); // Add the newCartItem to the cart
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, newCartItem])
+                      );
+                      toast.success("Item added successfully");
+                    }}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))}

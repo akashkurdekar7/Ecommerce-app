@@ -26,6 +26,7 @@ import Search from "./pages/Search.js";
 import ProductDetails from "./pages/ProductDetails.js";
 import CartPage from "./pages/CartPage.js";
 import AllProducts from "./pages/AllProducts.js";
+import Blog from "./pages/Blog.js";
 
 const App = () => {
   const theme = {
@@ -115,6 +116,7 @@ const App = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
         <Route path="/practise" element={<Practise />} />

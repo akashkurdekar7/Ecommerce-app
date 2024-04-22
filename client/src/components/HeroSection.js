@@ -61,7 +61,7 @@ const Wrapper = styled.section`
   .hero-section-data {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: center;
     justify-content: center;
 
