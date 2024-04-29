@@ -57,10 +57,12 @@ const Products = () => {
                       />
                     </div>
                     <div className="card-body">
-                      <h5 className="p-name">{p.name}</h5>
-                      <p className="p-description">{p.description}</p>
-                      <p className="p-price">{p.price}</p>
-                      <p className="p-quantity">{p.quantity}</p>
+                      <h5 className="p-name">{p.name.substring(0, 30)}...</h5>
+                      <p className="p-description">
+                        {p.description.substring(0, 30)}...
+                      </p>
+                      <p className="p-price">₹ {p.price}</p>
+                      <p className="p-quantity">Quantity: {p.quantity}</p>
                     </div>
                   </div>
                 </Link>
@@ -74,7 +76,7 @@ const Products = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 1.5rem 3rem;
+  margin: 2rem 2rem;
   padding: 0;
   .title {
     font-size: 3rem;
@@ -83,7 +85,7 @@ const Wrapper = styled.div`
     text-align: center;
   }
   .pannel {
-    width: 100vw;
+    width: 97vw;
     display: flex;
     gap: 1rem;
 

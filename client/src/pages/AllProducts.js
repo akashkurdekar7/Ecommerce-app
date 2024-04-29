@@ -168,7 +168,7 @@ const AllProducts = () => {
                     {p.description.substring(0, 25)}...
                   </p>
                   <p className="p-price">₹ {p.price}</p>
-                  <p className="p-quantity">{p.quantity}</p>
+                  {/* <p className="p-quantity">{p.quantity}</p> */}
                   <div className="button-container">
                     <button
                       onClick={() => navigate(`/product/${p.slug}`)}
@@ -262,7 +262,7 @@ const Wrapper = styled.div`
 
   .product-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
     gap: 2rem;
     justify-content: space-around;
   }

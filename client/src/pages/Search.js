@@ -107,7 +107,7 @@ const Search = () => {
 const Wrapper = styled.div`
   .product-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
     gap: 2rem;
     justify-content: space-around;
 
