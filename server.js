@@ -26,7 +26,7 @@ app.use("/api/v1/product", productRoutes);
 connectDB();
 
 app.get("/", (req, res) => {
-  res.send(`<h1>welcome to ecommerce app</h1>`);
+  res.send(`<h1>welcome to Kraftopia Website</h1>`);
 });
 
 const PORT = process.env.PORT || 3001;
