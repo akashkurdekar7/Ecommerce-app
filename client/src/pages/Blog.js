@@ -4,7 +4,7 @@ import { Button } from "../styles/Button";
 import Layout from "./../components/Layout";
 
 const Blog = () => {
-  // Step 1: Define blog post data
+  // blog post data
   const blogPosts = [
     {
       title: "Bidriware: The Craft of Metal Inlay",
@@ -88,10 +88,8 @@ const Blog = () => {
     },
   ];
 
-  // Step 2: Define a state variable
   const [showFullContent, setShowFullContent] = useState(false);
 
-  // Step 3: Event handler function to toggle the state
   const toggleContent = () => {
     setShowFullContent(!showFullContent);
   };
@@ -167,19 +165,15 @@ const Wrapper = styled.section`
 
   .summary_button {
     background-color: initial;
-    background-image: linear-gradient(#8614f8 0, #760be0 100%);
+    background-image: linear-gradient(#22c55e 100%, #a9ffc9 100%);
     border-radius: 5px;
     border-style: none;
     box-shadow: rgba(245, 244, 247, 0.25) 0 1px 1px inset;
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
     display: inline-block;
-    /* font-family: Inter, sans-serif; */
     font-size: 12px;
     font-weight: 500;
-    /* height: 40px; */
-    /* line-height: 60px; */
-    /* margin-left: -4px; */
     outline: 0;
     text-align: center;
     transition: all 0.3s cubic-bezier(0.05, 0.03, 0.35, 1);

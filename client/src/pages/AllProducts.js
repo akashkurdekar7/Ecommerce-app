@@ -168,7 +168,7 @@ const AllProducts = () => {
                     {p.description.substring(0, 25)}...
                   </p>
                   <p className="p-price">₹ {p.price}</p>
-                  {/* <p className="p-quantity">{p.quantity}</p> */}
+                  <p className="p-quantity">{p.quantity}</p>
                   <div className="button-container">
                     <button
                       onClick={() => navigate(`/product/${p.slug}`)}
