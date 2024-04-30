@@ -115,6 +115,43 @@ const AllProducts = () => {
     } catch (error) {}
   };
 
+  // Add to Cart
+  const addToCart = (product) => {
+    const existingItemIndex = cart.findIndex(
+      (item) => item._id === product._id
+    );
+
+    let updatedCart = [...cart];
+    let updatedQuantity = quantity;
+
+    if (existingItemIndex !== -1) {
+      // If product already exists in cart, update its quantity
+      updatedQuantity += cart[existingItemIndex].quantity;
+    }
+
+    if (updatedQuantity > product.quantity) {
+      updatedQuantity = product.quantity; // Limit quantity to product quantity if exceeded
+      toast.error("Maximum quantity reached for this item");
+    } else {
+      const newCartItem = { ...product, quantity: updatedQuantity };
+
+      if (existingItemIndex !== -1) {
+        updatedCart[existingItemIndex] = newCartItem;
+      } else {
+        updatedCart.push(newCartItem);
+      }
+
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      if (existingItemIndex !== -1) {
+        toast.success("Item added successfully");
+      } else {
+        toast.success("Item added successfully");
+      }
+    }
+  };
+
   return (
     <Layout title={"All Products - Best Offers"}>
       <Wrapper className="grid grid-two-columns">
@@ -168,7 +205,7 @@ const AllProducts = () => {
                     {p.description.substring(0, 25)}...
                   </p>
                   <p className="p-price">₹ {p.price}</p>
-                  <p className="p-quantity">{p.quantity}</p>
+                  {/* <p className="p-quantity">{p.quantity}</p> */}
                   <div className="button-container">
                     <button
                       onClick={() => navigate(`/product/${p.slug}`)}
@@ -178,15 +215,16 @@ const AllProducts = () => {
                     </button>
                     <button
                       className="add-to-cart-button"
-                      onClick={() => {
-                        const newCartItem = { ...p, quantity }; // Create a new object with the specified quantity
-                        setCart([...cart, newCartItem]); // Add the newCartItem to the cart
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, newCartItem])
-                        );
-                        toast.success("Item added successfully");
-                      }}
+                      // onClick={() => {
+                      //   const newCartItem = { ...p, quantity };
+                      //   setCart([...cart, newCartItem]);
+                      //   localStorage.setItem(
+                      //     "cart",
+                      //     JSON.stringify([...cart, newCartItem])
+                      //   );
+                      //   toast.success("Item added successfully");
+                      // }}
+                      onClick={() => addToCart(p)}
                     >
                       Add to Cart
                     </button>

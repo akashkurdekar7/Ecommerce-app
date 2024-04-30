@@ -133,7 +133,7 @@ const CartPage = () => {
                 <div className="details">
                   <p className="name">{p.name}</p>
                   <p className="description">
-                    {p.description.substring(0, 30)}...
+                    {p.description ? p.description.substring(0, 30) : ""}...
                   </p>
                   <p className="price">Price: {p.price}</p>
                   <div className="quantity">
@@ -260,6 +260,7 @@ const CartItem = styled.div`
       display: flex;
       align-items: center;
       margin-top: 10px;
+      width: max-content;
       button {
         padding: 5px 10px;
         background-color: black;
