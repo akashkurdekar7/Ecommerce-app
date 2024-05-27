@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "keywords": [],
-  "author": "Akash Kurdekar,Dharti Pawar",
+  "author": "Akash Kurdekar, Dharti Pawar",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

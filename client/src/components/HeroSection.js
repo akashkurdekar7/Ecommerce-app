@@ -67,6 +67,7 @@ const Wrapper = styled.section`
 
     p {
       margin: 2rem 0;
+      text-align: center;
     }
     h1 {
       text-transform: capitalize;
