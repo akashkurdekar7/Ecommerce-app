@@ -54,8 +54,8 @@ const Wrapper = styled.div`
 
   .search_button {
     padding: 8px 16px;
-    background-color: ${({ theme }) => theme.colors.first};
-    color: ${({ theme }) => theme.colors.white};
+    background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 4px;
     font-size: 14px;
@@ -64,8 +64,7 @@ const Wrapper = styled.div`
   }
 
   .search_button:hover {
-    /* background-color: #0056b3; */
-    opacity: 0.7;
+    background-color: #0056b3;
   }
   @media (max-width: ${({ theme }) => theme.media.tab}) {
     display: none;

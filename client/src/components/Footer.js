@@ -16,13 +16,10 @@ const Footer = () => {
       <div className="footer">
         <div className="intro-desc">
           <Logo src="/images/Klogo.png" alt="my logo image" />
-          <p className="des">
-            Discover handmade crafts, artwork, and other one-of-a-kind items
-            made with passion and creativity.
-          </p>
+          <p>loremsafdosafsafljsadkfj safsfas asf</p>
         </div>
 
-        {/* <div className="subscribe">
+        <div className="subscribe">
           <h2 className="title">Subscribe to get important updates</h2>
           <InputContainer>
             <input
@@ -33,7 +30,7 @@ const Footer = () => {
             />
             <Button>Subscribe</Button>
           </InputContainer>
-        </div> */}
+        </div>
 
         <div className="navbar-lists">
           <NavLink
@@ -87,12 +84,12 @@ const Footer = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/#" className="social-link">
+              <NavLink to="/about" className="social-link">
                 <AiOutlineTwitter />
               </NavLink>
             </li>
             <li>
-              <NavLink to="/#" className="social-link">
+              <NavLink to="/contact" className="social-link">
                 <AiOutlineYoutube />
               </NavLink>
             </li>
@@ -127,16 +124,13 @@ const Wrapper = styled.footer`
 
   .footer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     align-items: center;
   }
 
   .intro-desc {
     text-align: center;
-    .des {
-      font-size: 1.5rem;
-    }
   }
 
   .subscribe {
@@ -241,7 +235,7 @@ const Wrapper = styled.footer`
 `;
 
 const Logo = styled.img`
-  width: 200px;
+  width: 100px;
 `;
 
 const InputContainer = styled.div`

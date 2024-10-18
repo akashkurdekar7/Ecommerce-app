@@ -4,7 +4,7 @@ import { Button } from "../styles/Button";
 import Layout from "./../components/Layout";
 
 const Blog = () => {
-  // blog post data
+  // Step 1: Define blog post data
   const blogPosts = [
     {
       title: "Bidriware: The Craft of Metal Inlay",
@@ -25,7 +25,7 @@ const Blog = () => {
     {
       title: "Mysore Silk: A Regal Tradition",
       imageUrl:
-        "https://imgs.search.brave.com/kfJZb-W_9rpC0VSXezwQuWKC7Jy7bcwqLuAVmKrYmJo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9i/L2IyL015c29yZV9T/aWxrX1NhcmVlLmpw/Zw",
+        "https://cdn.pixabay.com/photo/2016/05/03/18/32/mysore-1374277_1280.jpg",
       content:
         "Mysore silk is a luxurious fabric known for its smooth texture and rich colors. Produced in the city of Mysore, Karnataka, India, this silk is characterized by its lustrous appearance and intricate designs, often featuring motifs inspired by nature and heritage.",
       city: "Mysore, Karnataka, India",
@@ -33,7 +33,7 @@ const Blog = () => {
     {
       title: "Udupi Wood Carvings: Intricate Creations from Coastal Karnataka",
       imageUrl:
-        "https://imgs.search.brave.com/HxJXL-zY4d6JpwFKC1dr9iNFyNeLgtC8YfwcHft8SJQ/rs:fit:500:0:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9MUS9FRS9IVC9T/RUxMRVItMjQ3MzY1/MC9jYW5ub24tYm9k/aGktc2F0aHdhLS0y/NTB4MjUwLmpwZw",
+        "https://cdn.pixabay.com/photo/2016/12/17/16/41/pottery-1913180_1280.jpg",
       content:
         "Udupi wood carvings are renowned for their intricate designs and craftsmanship. Originating from the coastal town of Udupi in Karnataka, India, these carvings adorn temples, furniture, and decorative items, showcasing the artistic talent of local artisans.",
       city: "Udupi, Karnataka, India",
@@ -41,7 +41,7 @@ const Blog = () => {
     {
       title: "Ilkal Sarees: Vibrant Weaves from Northern Karnataka",
       imageUrl:
-        "https://imgs.search.brave.com/auiUya9VGD8GHST659os0i_zP-5N1iD6G55QXgN4y5w/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzc0L2Y1/LzFlLzc0ZjUxZWZj/MjljMGJjYWRiNGY4/YzY5YTYzYmQyNmI5/LmpwZw",
+        "https://cdn.pixabay.com/photo/2017/02/12/22/42/indian-2069618_1280.jpg",
       content:
         "Ilkal sarees are traditional handwoven sarees produced in the town of Ilkal in northern Karnataka, India. Known for their unique weave patterns and vibrant colors, these sarees hold cultural significance and are often worn during festivals and special occasions.",
       city: "Ilkal, Karnataka, India",
@@ -49,15 +49,23 @@ const Blog = () => {
     {
       title: "Kundapura Sarees: Elegance from Coastal Karnataka",
       imageUrl:
-        "https://imgs.search.brave.com/vOZlzcl2HwE8dANSRCHjc0Uk6vVEmW0hIIOH3LZhCes/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9zb3V0/aGxvb20uY29tL2Nk/bi9zaG9wL2FydGlj/bGVzL2t1dDRfNTMz/eC5qcGc_dj0xNTg0/NjA3Njk3",
+        "https://cdn.pixabay.com/photo/2017/02/12/22/41/indian-2069616_1280.jpg",
       content:
         "Kundapura sarees are handwoven sarees crafted in the town of Kundapura in coastal Karnataka, India. Made from pure cotton or silk, these sarees are known for their intricate designs and durability, reflecting the coastal heritage and craftsmanship of the region.",
       city: "Kundapura, Karnataka, India",
     },
     {
+      title: "Halebidu Temple Sculptures: Architectural Marvels of Karnataka",
+      imageUrl:
+        "https://cdn.pixabay.com/photo/2016/12/17/16/41/pottery-1913180_1280.jpg",
+      content:
+        "The temple sculptures of Halebidu, located in Hassan district of Karnataka, India, are renowned for their exquisite craftsmanship and intricate detailing. These sculptures depict scenes from Hindu mythology and showcase the skill of ancient artisans.",
+      city: "Halebidu, Karnataka, India",
+    },
+    {
       title: "Mysore Paintings: Rich Heritage on Canvas",
       imageUrl:
-        "https://imgs.search.brave.com/GR01ODFLfoMpO5639jYf4V-JvC7A6kQsKlLuYY3hTzk/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbS5o/dW50LmluL2NnL015/c29yZS9DaXR5LUd1/aWRlL1BBSU5USU5H/X0czSjJPUV82MzQ2/NTFmLmpwZw",
+        "https://cdn.pixabay.com/photo/2015/12/10/16/39/art-1088140_1280.jpg",
       content:
         "Mysore paintings are a form of classical South Indian art that originated in the city of Mysore, Karnataka, India. These paintings are characterized by their intricate details, vibrant colors, and depiction of mythological themes, showcasing the artistic heritage of the region.",
       city: "Mysore, Karnataka, India",
@@ -65,15 +73,25 @@ const Blog = () => {
     {
       title: "Kasuti Embroidery: Traditional Craft of Karnataka",
       imageUrl:
-        "https://imgs.search.brave.com/KA5RBI138pKr9bZMwRyREhXcVP0tQsCxkrHORPH2omc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JjLzQ1/LzQ2L2JjNDU0Njc3/ZDdlM2VjOTA2Y2Y2/MWRlYTViNDZhZTQ2/LmpwZw",
+        "https://cdn.pixabay.com/photo/2016/02/23/15/39/craft-1217987_1280.jpg",
       content:
         "Kasuti embroidery is a traditional craft of Karnataka, India, known for its intricate patterns and delicate stitches. Originating from the town of Dharwad, Kasuti embroidery is often used to embellish sarees, dress materials, and home decor items, reflecting the rich cultural heritage of the region.",
       city: "Dharwad, Karnataka, India",
     },
+    {
+      title: "Gokak Sarees: Handloom Marvels from North Karnataka",
+      imageUrl:
+        "https://cdn.pixabay.com/photo/2016/01/25/17/09/loom-1165353_1280.jpg",
+      content:
+        "Gokak sarees are handwoven sarees produced in the town of Gokak in North Karnataka, India. Made using traditional handloom techniques, these sarees are known for their unique weave patterns and vibrant colors, reflecting the cultural richness of the region.",
+      city: "Gokak, Karnataka, India",
+    },
   ];
 
+  // Step 2: Define a state variable
   const [showFullContent, setShowFullContent] = useState(false);
 
+  // Step 3: Event handler function to toggle the state
   const toggleContent = () => {
     setShowFullContent(!showFullContent);
   };
@@ -149,15 +167,19 @@ const Wrapper = styled.section`
 
   .summary_button {
     background-color: initial;
-    background-image: linear-gradient(#22c55e 100%, #a9ffc9 100%);
+    background-image: linear-gradient(#8614f8 0, #760be0 100%);
     border-radius: 5px;
     border-style: none;
     box-shadow: rgba(245, 244, 247, 0.25) 0 1px 1px inset;
-    color: ${({ theme }) => theme.colors.white};
+    color: #fff;
     cursor: pointer;
     display: inline-block;
+    /* font-family: Inter, sans-serif; */
     font-size: 12px;
     font-weight: 500;
+    /* height: 40px; */
+    /* line-height: 60px; */
+    /* margin-left: -4px; */
     outline: 0;
     text-align: center;
     transition: all 0.3s cubic-bezier(0.05, 0.03, 0.35, 1);
@@ -174,9 +196,9 @@ const Wrapper = styled.section`
 
   @media screen and (max-width: 1000px) {
     .summary_button {
-      font-size: 10px;
-      /* height: 55px; */
-      /* line-height: 55px; */
+      font-size: 14px;
+      height: 55px;
+      line-height: 55px;
       width: 150px;
     }
   }

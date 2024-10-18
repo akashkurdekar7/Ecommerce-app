@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
   res.send(`<h1>welcome to Kraftopia Website</h1>`);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`.bgRed.bold.black);
